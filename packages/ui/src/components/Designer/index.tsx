@@ -181,15 +181,17 @@ const TemplateEditor = ({
     onEditEnd,
   });
 
-  const updateTemplate = useCallback(async (newTemplate: Template) => {
-    const sl = await template2SchemasList(newTemplate);
-    setSchemasList(sl);
-    onEditEnd();
+const updateTemplate = useCallback(async (newTemplate: Template, preservePage = false) => {
+  const sl = await template2SchemasList(newTemplate);
+  setSchemasList(sl);
+  onEditEnd();
+  if (!preservePage) {
     setPageCursor(0);
     if (canvasRef.current?.scroll) {
       canvasRef.current.scroll({ top: 0, behavior: 'smooth' });
     }
-  }, []);
+  }
+}, []);
 
   const addSchema = (defaultSchema: Schema) => {
     const [paddingTop, paddingRight, paddingBottom, paddingLeft] = isBlankPdf(template.basePdf)
@@ -283,7 +285,7 @@ const TemplateEditor = ({
 
   if (prevTemplate !== template) {
     setPrevTemplate(template);
-    void updateTemplate(template);
+    void updateTemplate(template, true);
   }
 
   const canvasWidth = size.width - LEFT_SIDEBAR_WIDTH;
