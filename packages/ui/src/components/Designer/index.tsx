@@ -226,7 +226,16 @@ const TemplateEditor = ({
           canvasRef.current.scroll({ top: 0, behavior: 'smooth' });
         }
       } else {
-        setPageCursor((prev) => Math.min(prev, sl.length - 1));
+        setPageCursor((prev) => {
+          const clamped = Math.min(prev, sl.length - 1);
+          if (clamped !== prev && canvasRef.current) {
+            canvasRef.current.scroll({
+              top: getPagesScrollTopByIndex(pageSizes, clamped, scale),
+              behavior: 'smooth',
+            });
+          }
+          return clamped;
+        });
       }
     },
     [],
@@ -296,7 +305,7 @@ const TemplateEditor = ({
     setPageCursor(newPageCursor);
     const newTemplate = schemasList2template(sl, template.basePdf);
     onChangeTemplate(newTemplate);
-    await updateTemplate(newTemplate);
+    await updateTemplate(newTemplate, true);
     void refresh(newTemplate);
 
     // Notify page change with updated total pages
