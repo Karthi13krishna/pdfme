@@ -238,7 +238,7 @@ const TemplateEditor = ({
         });
       }
     },
-    [],
+    [pageSizes, scale],
   );
 
   const addSchema = (defaultSchema: Schema) => {
