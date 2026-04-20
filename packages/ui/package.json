@@ -1,6 +1,6 @@
 {
-  "name": "@pdfme/ui",
-  "version": "0.0.0",
+  "name": "@karthi13krishna/pdfme-ui",
+  "version": "1.0.3",
   "description": "TypeScript base PDF generator and React base UI. Open source, developed by the community, and completely free to use under the MIT license!",
   "keywords": [
     "pdf",
@@ -18,7 +18,7 @@
   "author": "hand-dot",
   "repository": {
     "type": "git",
-    "url": "git@github.com:pdfme/pdfme.git"
+    "url": "git+https://github.com/Karthi13krishna/pdfme"
   },
   "type": "module",
   "sideEffects": false,
